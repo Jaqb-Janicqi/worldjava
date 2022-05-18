@@ -17,7 +17,7 @@ import worldjava.world.organisms.Organism;
 public class Main 
 {
     public static final String GameFrame = null;
-    static int worldSize;
+    static int worldSize = 0;
     static World world;
 
     public static void worldInit()

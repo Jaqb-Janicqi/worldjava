@@ -260,8 +260,11 @@ class ButtonPanel extends JPanel implements ActionListener{
         else if(source == restoreGame)
         {
             Main.restoreState();
-            guiInit.initframe.setVisible(false);
-            Gui.createWindow();
+            if(Main.worldSize > 0)
+            {
+                guiInit.initframe.setVisible(false);
+                Gui.createWindow();
+            }
         }
     }
 }
