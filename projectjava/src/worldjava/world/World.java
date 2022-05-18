@@ -50,6 +50,17 @@ public class World {
             addOrganism(3, true);
             addOrganism(4, true);
             addOrganism(5, true);
+
+            addOrganism(1, false);     //add plants
+            addOrganism(2, false);
+            addOrganism(3, false);
+            addOrganism(4, false);
+            addOrganism(5, false);
+            addOrganism(1, false);
+            addOrganism(2, false);
+            addOrganism(3, false);
+            addOrganism(4, false);
+            addOrganism(5, false);
         }
     }
 
