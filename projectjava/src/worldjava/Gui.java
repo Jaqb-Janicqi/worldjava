@@ -1,6 +1,9 @@
 package worldjava;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.plaf.DimensionUIResource;
@@ -113,6 +116,19 @@ public class Gui extends JFrame implements ActionListener , KeyListener
         {
             Main.saveState();
         }
+        else
+        {
+            for(int y = 0; y < Main.worldSize; y++)
+            {
+                for(int x = 0; x < Main.worldSize; x++)
+                {
+                    if(source == grid[y][x])
+                    {
+                        new OrganismsList(x,y);
+                    }
+                }
+            }
+        }
         frame.requestFocusInWindow();
     }
 
@@ -180,6 +196,7 @@ public class Gui extends JFrame implements ActionListener , KeyListener
             for(int x = 0; x < Main.worldSize; x++)
             {
                 grid[y][x] = new JButton();
+                grid[y][x].addActionListener(this);
             }
         }
 
@@ -195,6 +212,106 @@ public class Gui extends JFrame implements ActionListener , KeyListener
                 worldGrid.add(grid[y][x]);
             }
         }
+    }
+}
+
+class OrganismsList extends JFrame implements ListSelectionListener
+{
+    protected JList list;
+    protected JFrame frame;
+    protected String[] organisms = {"Human", "Antelope", "Fox", "Sheep", "Turtle", "Wolf", 
+                            "Belladona", "Grass", "Guarana", "Sosnowsky Weed", "Sow Thistle"};
+    protected int xPos;
+    protected int yPos;
+    public OrganismsList(int x, int y) {
+        super("Choose organism to add");
+        this.xPos = x;
+        this.yPos = y;
+        
+        list = new JList(organisms);
+        list.addListSelectionListener(this);
+        add(list);
+
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        pack();
+        setVisible(true);
+    }
+
+    @Override
+    public void valueChanged(ListSelectionEvent e) {
+        // TODO Auto-generated method stub
+        String selected = list.getSelectedValue().toString();
+        switch (selected)
+        {
+        case "Guarana":
+            Main.world.addOrganism(3, xPos, yPos, false);
+            Gui.updateButtons();
+            dispose();
+            break;
+
+        case "Belladona":
+            Main.world.addOrganism(3, xPos, yPos, false);
+            Gui.updateButtons();
+            dispose();
+            break;
+        
+        case "Grass":
+            Main.world.addOrganism(1, xPos, yPos, false);
+            Gui.updateButtons();
+            dispose();
+            break;
+        
+        case "Sosnowsky Weed":
+            Main.world.addOrganism(5, xPos, yPos, false);
+            Gui.updateButtons();
+            dispose();
+            break;
+        
+        case "Sow Thistle":
+            Main.world.addOrganism(2, xPos, yPos, false);
+            Gui.updateButtons();
+            dispose();
+            break;
+
+        case "Antelope":
+            Main.world.addOrganism(5, xPos, yPos, true);
+            Gui.updateButtons();
+            dispose();
+            break;
+
+        case "Fox":
+            Main.world.addOrganism(3, xPos, yPos, true);
+            Gui.updateButtons();
+            dispose();
+            break;
+
+        case "Human":
+            if(!World.humanPresent) Main.world.addOrganism(9999, xPos, yPos, true);
+            Gui.updateButtons();
+            dispose();
+            break;
+
+        case "Sheep":
+            Main.world.addOrganism(2, xPos, yPos, true);
+            Gui.updateButtons();
+            dispose();
+            break;
+
+        case "Turtle":
+            Main.world.addOrganism(4, xPos, yPos, true);
+            Gui.updateButtons();
+            dispose();
+            break;
+
+        case "Wolf":
+            Main.world.addOrganism(1, xPos, yPos, true);
+            Gui.updateButtons();
+            dispose();
+            break;
+
+        default:
+            break;
+        }        
     }
 }
 
