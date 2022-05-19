@@ -23,7 +23,7 @@ public class World {
     public static int WORLDSIZEY;
     public static boolean humanPresent = false;
     public Organism human;
-    protected ArrayList<String> events = new ArrayList<>();
+    public ArrayList<String> events = new ArrayList<>();
     public ArrayList<Organism> organisms = new ArrayList<>(); 
 
     public static int randInt(int min, int max) 

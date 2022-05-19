@@ -27,6 +27,7 @@ public class Gui extends JFrame implements ActionListener , KeyListener
     private JButton nextTurnButton;
     private JButton restoreGame;
     private JButton saveButton;
+    private JButton eventsButton;
 
     public Gui() {
         super("World Simulation");
@@ -93,7 +94,7 @@ public class Gui extends JFrame implements ActionListener , KeyListener
         
         frame.addComponentsToPane(frame.getContentPane());
         
-        frame.setPreferredSize(new DimensionUIResource(1280, 720));
+        frame.setPreferredSize(new DimensionUIResource(1500, 720));
         frame.pack();
 
         frame.setVisible(true);
@@ -115,6 +116,10 @@ public class Gui extends JFrame implements ActionListener , KeyListener
         else if(source == saveButton)
         {
             Main.saveState();
+        }
+        else if(source == eventsButton)
+        {
+            new EventsList();
         }
         else
         {
@@ -146,12 +151,16 @@ public class Gui extends JFrame implements ActionListener , KeyListener
         nextTurnButton = new JButton("Next Turn");
         saveButton = new JButton("Save Game");
         restoreGame = new JButton("Load Save");
+        eventsButton = new JButton("Events");
+        eventsButton.addActionListener(this);
         nextTurnButton.addActionListener(this);
         saveButton.addActionListener(this);
         restoreGame.addActionListener(this);
+        controls.add(eventsButton);
         controls.add(restoreGame);
         controls.add(saveButton);
         controls.add(nextTurnButton);
+
 
         healthPanel = new JLabel();
         healthPanel.setText("   Health: "+ Main.world.human.strength + "  ");
@@ -215,6 +224,21 @@ public class Gui extends JFrame implements ActionListener , KeyListener
     }
 }
 
+class EventsList extends JFrame 
+{
+    protected JList list;
+    protected JFrame frame;
+    public EventsList() {
+        super("Events");
+        
+        list = new JList(Main.world.events.toArray());
+        add(list);
+
+        pack();
+        setVisible(true);
+    }
+}
+
 class OrganismsList extends JFrame implements ListSelectionListener
 {
     protected JList list;
@@ -232,14 +256,12 @@ class OrganismsList extends JFrame implements ListSelectionListener
         list.addListSelectionListener(this);
         add(list);
 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
         setVisible(true);
     }
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
-        // TODO Auto-generated method stub
         String selected = list.getSelectedValue().toString();
         switch (selected)
         {
