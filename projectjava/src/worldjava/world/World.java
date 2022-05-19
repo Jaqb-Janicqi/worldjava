@@ -75,6 +75,7 @@ public class World {
         Boolean keepRunning = true;
         Transporter data = null;
         int i = 0;
+        events.clear();
 
         while (i < organisms.size())
         {

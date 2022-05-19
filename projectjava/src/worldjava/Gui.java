@@ -22,7 +22,7 @@ public class Gui extends JFrame implements ActionListener , KeyListener
     static JButton[][] grid;
     static JPanel worldGrid;
     protected Container pane;
-    protected JLabel healthPanel;
+    protected static JLabel healthPanel;
     static Gui frame;
     private JButton nextTurnButton;
     private JButton restoreGame;
@@ -31,6 +31,7 @@ public class Gui extends JFrame implements ActionListener , KeyListener
 
     public Gui() {
         super("World Simulation");
+        setResizable(false);
         addKeyListener(this);
         setFocusable(true);
         requestFocusInWindow();
@@ -309,6 +310,7 @@ class OrganismsList extends JFrame implements ListSelectionListener
 
         case "Human":
             if(!World.humanPresent) Main.world.addOrganism(9999, xPos, yPos, true);
+            Gui.healthPanel.setText("   Health: "+ Main.world.human.strength + "  ");
             Gui.updateButtons();
             dispose();
             break;
